@@ -1,3 +1,10 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  margin: 0;
+  padding: 0;
+}
+
 #container {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -15,6 +22,8 @@
   padding: 16px;
   border: 2px solid #ccc;
   border-radius: 8px;
+  background-color: #1e1e1e;
+  color: #fff;
 }
 
 @media (max-width: 900px) {
