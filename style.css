@@ -5,6 +5,8 @@
   --border-color: #ccc;
 }
 
+/* I DO NOT LIKE THESE COLORS, I WILL CHANGE THEM LATER */
+
 #container {
   padding: 20px;
   color: var(--text-color);
