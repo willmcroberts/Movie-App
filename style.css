@@ -37,7 +37,7 @@ body {
   display: flex;
   gap: 16px;
   min-width: 0;
-  min-height: 320px;
+  min-height: 240px;
   padding: 16px;
   border: 2px solid var(--border-color);
   border-radius: 8px;
@@ -45,14 +45,44 @@ body {
   color: var(--text-color);
 }
 
+.movie-poster {
+  width: 120px;
+  height: 180px;
+  flex: 0 0 auto;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.movie-details {
+  min-width: 0;
+}
+
+.movie-details h2 {
+  margin: 0 0 8px;
+}
+
+.movie-rating {
+  margin: 0 0 12px;
+  font-weight: bold;
+}
+
+.movie-overview {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.movie-error {
+  color: var(--text-color);
+}
+
 @media (max-width: 900px) {
-  #container {
+  #movie-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 600px) {
-  #container {
+  #movie-container {
     grid-template-columns: 1fr;
   }
 }
