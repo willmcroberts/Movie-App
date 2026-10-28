@@ -1,31 +1,6 @@
 const movieContainer = document.querySelector("#movie-container");
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
-/*
-fetch(
-  "https://zesty-cactus-c400be.netlify.app/.netlify/functions/get-data"
-)
-  .then(async (response) => {
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        `Request failed (${response.status}): ${
-          data.error || "Unknown error"
-        }`
-      );
-    }
-
-    return data;
-  })
-  .then((data) => {
-    console.log("Popular movies:", data.results);
-  })
-  .catch((error) => {
-    console.error("Failed to fetch movies:", error);
-  });
-*/
-
 function createMovieCard(movie) {
   const card = document.createElement("article");
   card.className = "movie-cards";
@@ -62,19 +37,29 @@ function createMovieCard(movie) {
 
 async function loadMovies() {
   try {
-    const response = await fetch("./offline.json");
+    const response = await fetch(
+      "https://zesty-cactus-c400be.netlify.app/.netlify/functions/get-data"
+    );
+    const data = await response.json();
+
     if (!response.ok) {
-      throw new Error(`Request failed (${response.status})`);
+      throw new Error(
+        `Request failed (${response.status}): ${
+          data.error || "Unable to retrieve movie data"
+        }`
+      );
     }
 
-    const data = await response.json();
+    if (!Array.isArray(data.results)) {
+      throw new Error("The movie service returned an unexpected response.");
+    }
+
     movieContainer.replaceChildren(...data.results.map(createMovieCard));
   } catch (error) {
-    console.error("Failed to load offline movie data:", error);
+    console.error("Failed to load live movie data:", error);
     const message = document.createElement("p");
     message.className = "movie-error";
-    message.textContent =
-      "Unable to load movies. Open this site through a local or hosted web server.";
+    message.textContent = `Unable to load live movies: ${error.message}`;
     movieContainer.replaceChildren(message);
   }
 }
