@@ -1,6 +1,31 @@
 const movieContainer = document.querySelector("#movie-container");
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
+/*
+fetch(
+  "https://zesty-cactus-c400be.netlify.app/.netlify/functions/get-data"
+)
+  .then(async (response) => {
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        `Request failed (${response.status}): ${
+          data.error || "Unknown error"
+        }`
+      );
+    }
+
+    return data;
+  })
+  .then((data) => {
+    console.log("Popular movies:", data.results);
+  })
+  .catch((error) => {
+    console.error("Failed to fetch movies:", error);
+  });
+*/
+
 function createMovieCard(movie) {
   const card = document.createElement("article");
   card.className = "movie-cards";
