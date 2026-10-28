@@ -46,7 +46,10 @@ function createMovieCard(movie) {
 
   const rating = document.createElement("p");
   rating.className = "movie-rating";
-  rating.textContent = `Rating: ${movie.vote_average}`;
+  const score = Number(movie.vote_average);
+  rating.textContent = `Rating: ${
+    Number.isFinite(score) ? score.toFixed(1) : "N/A"
+  }`;
 
   const overview = document.createElement("p");
   overview.className = "movie-overview";
