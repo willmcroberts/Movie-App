@@ -7,6 +7,11 @@
 
 /* I DO NOT LIKE THESE COLORS, I WILL CHANGE THEM LATER */
 
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
 #container {
   padding: 20px;
   color: var(--text-color);
