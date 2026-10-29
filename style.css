@@ -20,6 +20,30 @@ h1 {
   color: var(--text-color);
 }
 
+#load-movies {
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#load-movies:hover:not(:disabled) {
+  background-color: #ffda7a;
+}
+
+#load-movies:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+#movie-status {
+  color: var(--muted-color);
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: var(--primary-color);

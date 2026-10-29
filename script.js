@@ -1,5 +1,8 @@
 const movieContainer = document.querySelector("#movie-container");
+const loadMoviesButton = document.querySelector("#load-movies");
+const movieStatus = document.querySelector("#movie-status");
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+let hasLoadedMovies = false;
 
 function createMovieCard(movie) {
   const card = document.createElement("article");
@@ -55,13 +58,32 @@ async function loadMovies() {
     }
 
     movieContainer.replaceChildren(...data.results.map(createMovieCard));
+    return true;
   } catch (error) {
     console.error("Failed to load live movie data:", error);
     const message = document.createElement("p");
     message.className = "movie-error";
     message.textContent = `Unable to load live movies: ${error.message}`;
     movieContainer.replaceChildren(message);
+    return false;
   }
 }
 
-loadMovies();
+loadMoviesButton.addEventListener("click", async () => {
+  loadMoviesButton.disabled = true;
+  loadMoviesButton.textContent = "Loading movies...";
+  movieStatus.textContent = "Fetching popular movies.";
+
+  const loaded = await loadMovies();
+  if (loaded) {
+    hasLoadedMovies = true;
+    movieStatus.textContent = "Popular movies loaded.";
+  } else {
+    movieStatus.textContent = "Unable to load movies. Try again.";
+  }
+
+  loadMoviesButton.disabled = false;
+  loadMoviesButton.textContent = hasLoadedMovies
+    ? "Refresh movies"
+    : "Load popular movies";
+});
