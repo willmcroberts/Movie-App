@@ -24,6 +24,15 @@ h1 {
   color: var(--text-color);
 }
 
+#container p {
+  max-width: 800px;
+  margin: 0 auto 20px;
+  font-size: 1.1rem;
+  font-family: "Inder", "Segoe UI", sans-serif;
+  line-height: 1.7;
+  text-align: center;
+}
+
 #load-movies {
   display: block;
   margin: 24px auto 0;
