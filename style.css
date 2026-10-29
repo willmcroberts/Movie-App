@@ -21,6 +21,8 @@ h1 {
 }
 
 #load-movies {
+  display: block;
+  margin: 24px auto 0;
   padding: 11px 18px;
   border: 0;
   border-radius: 8px;
@@ -45,6 +47,9 @@ h1 {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: Arial, sans-serif;
   background-color: var(--primary-color);
   margin: 0;
@@ -130,7 +135,7 @@ footer {
   align-items: center;
   justify-content: flex-end;
   gap: 14px;
-  margin-top: 32px;
+  margin-top: auto;
   padding: 24px 20px;
   border-top: 1px solid var(--border-color);
   background: linear-gradient(180deg, rgba(25, 30, 40, 0.45), var(--secondary-color));
