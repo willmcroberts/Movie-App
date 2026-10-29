@@ -136,7 +136,7 @@ footer {
   margin-top: auto;
   padding: 24px 20px;
   border-top: 1px solid var(--border-color);
-  background: linear-gradient(180deg, rgba(25, 30, 40, 0.45), var(--secondary-color));
+  background: linear-gradient(180deg, rgba(25, 30, 40, 1), var(--secondary-color));
   color: var(--muted-color);
 }
 
