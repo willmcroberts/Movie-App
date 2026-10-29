@@ -1,6 +1,5 @@
 const movieContainer = document.querySelector("#movie-container");
 const loadMoviesButton = document.querySelector("#load-movies");
-const movieStatus = document.querySelector("#movie-status");
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 let hasLoadedMovies = false;
 
@@ -39,9 +38,13 @@ function createMovieCard(movie) {
 }
 
 async function loadMovies() {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
   try {
     const response = await fetch(
-      "https://zesty-cactus-c400be.netlify.app/.netlify/functions/get-data"
+      "https://zesty-cactus-c400be.netlify.app/.netlify/functions/get-data",
+      { signal: controller.signal }
     );
     const data = await response.json();
 
@@ -63,27 +66,31 @@ async function loadMovies() {
     console.error("Failed to load live movie data:", error);
     const message = document.createElement("p");
     message.className = "movie-error";
-    message.textContent = `Unable to load live movies: ${error.message}`;
+    const errorMessage =
+      error.name === "AbortError"
+        ? "The request timed out. Please try again."
+        : error.message;
+    message.textContent = `Unable to load live movies: ${errorMessage}`;
     movieContainer.replaceChildren(message);
     return false;
+  } finally {
+    window.clearTimeout(timeoutId);
   }
 }
 
 loadMoviesButton.addEventListener("click", async () => {
   loadMoviesButton.disabled = true;
   loadMoviesButton.textContent = "Loading movies...";
-  movieStatus.textContent = "Fetching popular movies.";
 
-  const loaded = await loadMovies();
-  if (loaded) {
-    hasLoadedMovies = true;
-    movieStatus.textContent = "Popular movies loaded.";
-  } else {
-    movieStatus.textContent = "Unable to load movies. Try again.";
+  try {
+    const loaded = await loadMovies();
+    if (loaded) {
+      hasLoadedMovies = true;
+    }
+  } finally {
+    loadMoviesButton.disabled = false;
+    loadMoviesButton.textContent = hasLoadedMovies
+      ? "Refresh movies"
+      : "Load popular movies";
   }
-
-  loadMoviesButton.disabled = false;
-  loadMoviesButton.textContent = hasLoadedMovies
-    ? "Refresh movies"
-    : "Load popular movies";
 });
