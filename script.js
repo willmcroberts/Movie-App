@@ -63,7 +63,6 @@ async function loadMovies() {
     movieContainer.replaceChildren(...data.results.map(createMovieCard));
     return true;
   } catch (error) {
-    console.error("Failed to load live movie data:", error);
     const message = document.createElement("p");
     message.className = "movie-error";
     const errorMessage =
